@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EndoSuite Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .expanded-content { display: none; }
+        .is-expanded + .expanded-content { display: table-row; }
+        
+        .is-expanded .chevron-icon { transform: rotate(180deg); }
+        .chevron-icon { transition: transform 0.3s ease; }
+        
+        /* Switch styling */
+        .switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #cbd5e1; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: #0f766e; }
+        input:checked + .slider:before { transform: translateX(20px); }
+    </style>
+</head>
+<body class="bg-slate-100 text-gray-900 min-h-screen pb-20">
+
+    <header class="sticky top-0 z-50 bg-teal-900 text-white p-4 shadow-md">
+        <!-- Background wrapper (overflow hidden here ensures curves don't spill) -->
+        <div class="absolute inset-0 overflow-hidden z-0">
+            <svg class="absolute top-0 right-0 w-64 h-full opacity-10 pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M200 0C100 0 50 100 0 200" stroke="white" stroke-width="40" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <div class="container mx-auto flex justify-between items-center px-4 max-w-7xl relative z-10">
+            <h1 class="text-2xl font-semibold tracking-tight">EndoSuite</h1>
+            
+            <div class="relative">
+                <button id="userMenuBtn" class="p-2 rounded-full hover:bg-teal-800 transition focus:outline-none">
+                    <svg class="w-8 h-8 text-teal-200" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </button>
+                <!-- Dropdown -->
+                <div id="userMenuDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white text-gray-700 rounded-lg shadow-xl border border-gray-100 py-1 z-[100]">
+                    <a href="template_editor.html" class="block px-4 py-2 text-sm hover:bg-slate-50">Template Editor</a>
+                    <a href="#" class="block px-4 py-2 text-sm hover:bg-slate-50">Medicines</a>
+                    <a href="#" class="block px-4 py-2 text-sm hover:bg-slate-50">Settings</a>
+                    <hr class="my-1">
+                    <button onclick="closeApp()" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Close Application</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 max-w-7xl mt-8">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-bold text-gray-800">Patients</h2>
+            <button onclick="window.location.href='register_patient.html'" class="bg-teal-700 hover:bg-teal-600 px-5 py-2.5 rounded-lg text-sm font-medium text-white transition shadow-lg flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                New Patient
+            </button>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-gray-50 text-gray-600 uppercase text-[10px] font-bold tracking-wider">
+                    <tr>
+                        <th class="p-4 pl-6">MRN / First Visit</th>
+                        <th class="p-4">Patient Name / ID</th>
+                        <th class="p-4">Age / Sex</th>
+                        <th class="p-4">Mobile No.</th>
+                        <th class="p-4">Last Procedure</th>
+                        <th class="p-4">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="patient-list">
+                    <tr class="border-b hover:bg-slate-50 cursor-pointer transition-colors" onclick="this.classList.toggle('is-expanded')">
+                        <td class="p-4 pl-6 flex items-center gap-3">
+                            <svg class="w-4 h-4 text-gray-400 chevron-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div>
+                                <div class="font-bold text-gray-900">MRN-0001</div>
+                                <div class="text-xs text-gray-400">12 Jan 2026</div>
+                            </div>
+                        </td>
+                        <td class="p-4">
+                            <div class="font-bold text-gray-900">John Doe</div>
+                            <div class="text-xs text-gray-400">ID-9982</div>
+                        </td>
+                        <td class="p-4">
+                            <div class="flex items-center gap-2">
+                                <span class="text-sm font-medium">45</span>
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-[10px] font-bold bg-blue-100 text-blue-800 rounded">M</span>
+                            </div>
+                        </td>
+                        <td class="p-4 text-sm text-gray-600 font-mono">0123456789</td>
+                        <td class="p-4">
+                            <div class="font-medium text-gray-900">Gastroscopy</div>
+                            <div class="text-xs text-gray-400">15 Jun 2026</div>
+                        </td>
+                        <td class="p-4">
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </td>
+                    </tr>
+                    
+                    <!-- Expanded View -->
+                    <tr class="expanded-content bg-slate-50 border-b">
+                        <td colspan="6" class="p-6">
+                            <table class="w-full text-sm text-left mb-6">
+                                <thead class="text-xs text-gray-500 uppercase border-b">
+                                    <tr>
+                                        <th class="pb-3">Procedure Name</th>
+                                        <th class="pb-3">Status</th>
+                                        <th class="pb-3">Gallery</th>
+                                        <th class="pb-3">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b last:border-0">
+                                        <td class="py-3">
+                                            <div class="font-medium">Gastroscopy</div>
+                                            <div class="text-xs text-gray-400">15 June 2026</div>
+                                        </td>
+                                        <td class="py-3">
+                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-[10px] font-bold rounded-full uppercase">Pending</span>
+                                        </td>
+                                        <td class="py-3 flex gap-3 text-gray-500">
+                                            <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> 4</span>
+                                            <span class="flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> 1</span>
+                                        </td>
+                                        <td class="py-3">
+                                            <div class="flex gap-3 text-gray-600">
+                                                <button title="Edit"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg></button>
+                                                <button title="Delete"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
+                                                <button title="Download"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="flex flex-col items-center justify-center pt-4">
+                                <button onclick="window.location.href='add_procedure.html'" class="w-10 h-10 flex items-center justify-center rounded-full bg-teal-600 text-white shadow-lg hover:bg-teal-700 transition">
+                                    <span class="text-xl font-bold">+</span>
+                                </button>
+                                <span class="text-[10px] text-gray-400 mt-2 uppercase tracking-wide">Add Procedure</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script>
+        const userMenuBtn = document.getElementById('userMenuBtn');
+        const userMenuDropdown = document.getElementById('userMenuDropdown');
+
+        userMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            userMenuDropdown.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', () => {
+            if (!userMenuDropdown.classList.contains('hidden')) {
+                userMenuDropdown.classList.add('hidden');
+            }
+        });
+
+        // Close Application Function
+        function closeApp() {
+            localStorage.clear();
+            document.body.innerHTML = `
+                <div class="flex flex-col items-center justify-center min-h-screen text-gray-800">
+                    <h1 class="text-4xl font-bold text-teal-900">Session Closed</h1>
+                    <p class="text-gray-500 mt-4 text-center">Your EndoSuite session has been terminated safely.<br>Please refresh the page to sign in again.</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
