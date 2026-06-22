@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - EndoSuite</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 min-h-screen flex">
+
+    <!-- Left Side: Branded Panel -->
+    <div class="hidden lg:flex lg:w-1/2 bg-teal-900 p-12 flex-col justify-between text-white relative overflow-hidden">
+        <!-- Abstract background pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
+            </svg>
+        </div>
+        
+        <div class="relative z-10">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-teal-500 rounded-xl flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                </div>
+                <span class="text-2xl font-bold tracking-tight">EndoSuite</span>
+            </div>
+        </div>
+
+        <div class="relative z-10">
+            <h1 class="text-5xl font-bold mb-6">Manage procedures<br>with precision.</h1>
+            <p class="text-teal-200 text-lg max-w-md">Streamline your clinical workflows, manage patient records, and track procedure history in one secure, unified portal.</p>
+        </div>
+
+        <div class="relative z-10 text-teal-400 text-sm">
+            © 2026 EndoSuite Systems
+        </div>
+    </div>
+
+    <!-- Right Side: Login Form -->
+    <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div class="w-full max-w-sm">
+            <div class="mb-10 lg:hidden">
+                <h1 class="text-3xl font-bold text-teal-900">EndoSuite</h1>
+            </div>
+
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">Welcome back</h2>
+                <p class="text-slate-500">Please enter your credentials to continue.</p>
+            </div>
+
+            <form id="login-form" class="space-y-5">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Username</label>
+                    <input type="text" id="username" required 
+                        class="w-full bg-white border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Password</label>
+                    <input type="password" id="password" required 
+                        class="w-full bg-white border border-slate-200 rounded-xl p-4 focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 outline-none transition-all">
+                </div>
+
+                <button type="submit" 
+                    class="w-full bg-teal-900 hover:bg-teal-800 text-white py-4 rounded-xl font-semibold transition-all shadow-lg shadow-teal-900/20 hover:scale-[1.01] active:scale-[0.99] mt-4">
+                    Sign In
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>
