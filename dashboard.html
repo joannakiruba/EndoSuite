@@ -4,54 +4,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EndoSuite Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=La09fKiJR0r19urOzWeHXbxxWYDs1wLr5MuMIoj_E0xgbFZS1ZWc--avUl8713r9rDRSxrdJOAbXwTnOFzM9wWQ8edaiMRlE0B3JwiLSPZZfMsaEol7dLzURAjIWZsVGmJxfbGPcQJVNBiow9uFCA9gyEdbV9YGQivf-9rCVTwx6nZ4VvT8vzNYl2Vjist2I1qA14jx1xPF9brYlUYuMise8xiQlYQrUYXTh16WcB6G-n4FC2rXXuOJAmCPGsA0zUGcxhmK5lggE7ZCQgJCLfQ" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
     <style>
-.swipe-container {
-    position: relative;
-    width: 160px;
-    height: 36px;
-    background: #e2e8f0;
-    border-radius: 9999px;
-    overflow: hidden;
-    user-select: none;
-}
+        /* Floating Quick Procedure Button */
 
-.swipe-label {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 600;
-    color: #475569;
-    pointer-events: none;
-    padding-left: 16px;
-}
+        .quick-procedure{
+            position:fixed;
+            bottom:28px;
+            right:28px;
 
-.swipe-thumb {
-    position: absolute;
-    left: 2px;
-    top: 2px;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: #0f766e;
-    cursor: grab;
-    transition: background 0.2s;
-}
+            width:58px;
+            height:58px;
 
-.swipe-container.completed {
-    background: #ccfbf1;
-}
+            background:#0f766e;
+            color:#fff;
 
-.swipe-container.completed .swipe-label {
-    color: #0f766e;
-}
+            border-radius:999px;
 
-.swipe-container.completed .swipe-thumb {
-    background: #0f766e;
-}
+            display:flex;
+            align-items:center;
+
+            overflow:hidden;
+
+            cursor:pointer;
+
+            text-decoration:none;
+
+            transition:.35s;
+
+            box-shadow:0 10px 25px rgba(15,118,110,.35);
+
+            z-index:999;
+        }
+
+        .quick-procedure:hover{
+            width:215px;
+        }
+
+        .quick-icon{
+            width:58px;
+            min-width:58px;
+            height:58px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .quick-procedure span{
+
+            font-size:15px;
+            font-weight:600;
+
+            white-space:nowrap;
+
+            opacity:0;
+
+            transform:translateX(12px);
+
+            transition:.25s;
+        }
+
+        .quick-procedure:hover span{
+            opacity:1;
+            transform:translateX(0);
+        }
+
+        .swipe-container {
+            position: relative;
+            width: 160px;
+            height: 36px;
+            background: #e2e8f0;
+            border-radius: 9999px;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .swipe-label {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+            pointer-events: none;
+            padding-left: 16px;
+        }
+
+        .swipe-thumb {
+            position: absolute;
+            left: 2px;
+            top: 2px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #0f766e;
+            cursor: grab;
+            transition: background 0.2s;
+        }
+
+        .swipe-container.completed {
+            background: #ccfbf1;
+        }
+
+        .swipe-container.completed .swipe-label {
+            color: #0f766e;
+        }
+
+        .swipe-container.completed .swipe-thumb {
+            background: #0f766e;
+        }
         .expanded-content { display: none; }
         .is-expanded + .expanded-content { display: table-row; }
         .is-expanded .chevron-icon { transform: rotate(180deg); }
@@ -78,7 +142,9 @@
                 <div id="userDropdown" class="hidden absolute right-0 top-12 w-48 bg-white rounded-lg shadow-xl text-gray-700 py-2 border border-slate-100 z-50">
                     <a href="template_editor.html" class="block px-4 py-2 hover:bg-slate-100 text-sm">Template Editor</a>
                     <a href="#" class="block px-4 py-2 hover:bg-slate-100 text-sm">Medicines</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-100 text-sm">Settings</a>
+                    <a href="settings.html" class="block px-4 py-2 hover:bg-slate-100 text-sm">
+                        Settings
+                    </a>
                     <div class="border-t my-1"></div>
                     <a href="index.html" class="block px-4 py-2 hover:bg-red-50 text-red-600 text-sm font-semibold">Sign Out</a>
                 </div>
@@ -88,12 +154,94 @@
 
     <main class="container mx-auto px-4 max-w-7xl mt-8">
         <div class="flex justify-between items-center mb-6">
-            <h2 class="text-xl font-bold text-gray-800">Patients</h2>
-            <button onclick="toggleDrawer(true)" class="bg-teal-700 hover:bg-teal-600 px-5 py-2.5 rounded-lg text-sm font-medium text-white transition shadow-lg flex items-center gap-2">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                New Patient
-            </button>
-        </div>
+
+            <div>
+                <h2 class="text-xl font-bold text-gray-800">
+                    Patients
+                </h2>
+
+                <p class="text-xs text-gray-500">
+                    Demo Mode • Hardcoded Sample Data
+                </p>
+            </div>
+
+            <div class="flex items-center gap-3">
+
+                <!-- Search -->
+
+                <div class="relative">
+                    <svg
+                        class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z">
+                        </path>
+
+                    </svg>
+
+                    <input
+                        type="text"
+                        placeholder="Search patient..."
+                        class="w-64 pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg bg-white text-sm focus:outline-none focus:ring-2 focus:ring-teal-600"
+                    >
+                </div>
+
+                <!-- Filter Button -->
+
+                <button
+                    class="border border-gray-300 bg-white hover:bg-gray-50 px-4 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition"
+                >
+                    <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M3 4a1 1 0 011-1h16a1 1 0 01.8 1.6L14 13v5a1 1 0 01-.553.894l-2 1A1 1 0 0110 19v-6L3.2 4.6A1 1 0 013 4z">
+                        </path>
+
+                    </svg>
+
+                    Filter
+                </button>
+
+                <!-- New Patient -->
+
+                <button
+                    onclick="toggleDrawer(true)"
+                    class="bg-teal-700 hover:bg-teal-600 px-5 py-2.5 rounded-lg text-sm font-medium text-white transition shadow-lg flex items-center gap-2"
+                >
+                    <svg
+                        class="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24">
+
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M12 4v16m8-8H4">
+                        </path>
+
+                    </svg>
+
+                    New Patient
+                </button>
+
+            </div>
+
+            </div>
 
         <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <table class="w-full text-left border-collapse" id="patient-table">
@@ -119,7 +267,615 @@
                         <td class="p-4"><div class="font-medium">Gastroscopy</div><div class="text-xs text-gray-400">15 Jun 2026</div></td>
                         <td class="p-4">
     <div class="swipe-container">
-        <div class="swipe-label">   ➜ Swipe to Start</div>
+        <div class="swipe-label">➜ Swipe to Start</div>
+        <div class="swipe-thumb"></div>
+    </div>
+</td>
+                    </tr>
+                    <tr class="expanded-content bg-slate-50 border-b">
+                        <td colspan="6" class="p-6">
+                            <div class="grid grid-cols-4 gap-6 mb-8 border-b pb-6">
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Email</div><div class="text-sm text-gray-700">john.doe@email.com</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Address</div><div class="text-sm text-gray-700">123 Main St, City</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Physician</div><div class="text-sm text-gray-700">Dr. Smith</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Ref ID</div><div class="text-sm text-gray-700">REF-8821</div></div>
+                                </div>
+                            </div>
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-gray-500 uppercase border-b">
+    					<tr>
+        					<th class="pb-2">Procedure</th>
+        					<th class="pb-2">Status</th>
+        					<th class="pb-2">Gallery</th>
+						<th class="pb-2 text-center">Report</th>
+        					<th class="pb-2 text-center">Edit</th>
+        					<th class="pb-2 text-center">Delete</th>
+        					<th class="pb-2 text-center">Import</th>
+    					</tr>
+				</thead>
+                                <tbody><tr><td class="py-2">Gastroscopy</td><td class="py-2"><span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 text-[10px] rounded-full uppercase">Pending</span></td>
+<td class="py-2">
+    <div class="flex items-center gap-3 text-gray-500">
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Images">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4-4a2 2 0 012.828 0L16 17m-2-2l1-1a2 2 0 012.828 0L20 16m-6-8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                </path>
+            </svg>
+
+            <span>12</span>
+        </button>
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Videos">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 6h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z">
+                </path>
+            </svg>
+
+            <span>3</span>
+        </button>
+
+    </div>
+</td>
+<td class="py-2 text-center">
+    <button title="View Report" class="text-gray-400 hover:text-indigo-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6M9 8h6m2-5H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z">
+            </path>
+        </svg>
+    </button>
+</td>
+<td class="py-2 text-center">
+    <button title="Edit" class="text-gray-400 hover:text-blue-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Import" class="text-gray-400 hover:text-teal-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12">
+            </path>
+        </svg>
+    </button>
+</td></tr></tbody>
+                            </table>
+                            <a href="add_procedure.html" class="mt-4 block text-xs font-bold text-teal-700 hover:text-teal-900">+ Add Procedure</a>
+                        </td>
+                    </tr>
+<tr class="border-b hover:bg-slate-50 cursor-pointer transition-colors" onclick="this.classList.toggle('is-expanded')">
+                        <td class="p-4 pl-6 flex items-center gap-3">
+                            <svg class="w-4 h-4 text-gray-400 chevron-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div><div class="font-bold">MRN-0002</div><div class="text-xs text-gray-400">12 Jan 2026</div></div>
+                        </td>
+                        <td class="p-4"><div class="font-bold">Sarah Lim</div><div class="text-xs text-gray-400">ID-9982</div></td>
+                        <td class="p-4"><div class="flex items-center gap-2"><span class="text-sm">32</span><span class="text-[10px] bg-pink-100 text-pink-800 px-1.5 py-0.5 rounded">F</span></div></td>
+                        <td class="p-4 text-sm font-mono">0123456789</td>
+                        <td class="p-4"><div class="font-medium">Colonoscopy</div><div class="text-xs text-gray-400">12 Jun 2026</div></td>
+                        <td class="p-4">
+    <div class="swipe-container">
+        <div class="swipe-label">➜ Swipe to Start</div>
+        <div class="swipe-thumb"></div>
+    </div>
+</td>
+                    </tr>
+                    <tr class="expanded-content bg-slate-50 border-b">
+                        <td colspan="6" class="p-6">
+                            <div class="grid grid-cols-4 gap-6 mb-8 border-b pb-6">
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Email</div><div class="text-sm text-gray-700">john.doe@email.com</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Address</div><div class="text-sm text-gray-700">123 Main St, City</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Physician</div><div class="text-sm text-gray-700">Dr. Smith</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Ref ID</div><div class="text-sm text-gray-700">REF-8821</div></div>
+                                </div>
+                            </div>
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-gray-500 uppercase border-b">
+    					<tr>
+        					<th class="pb-2">Procedure</th>
+        					<th class="pb-2">Status</th>
+        					<th class="pb-2">Gallery</th>
+						<th class="pb-2 text-center">Report</th>
+        					<th class="pb-2 text-center">Edit</th>
+        					<th class="pb-2 text-center">Delete</th>
+        					<th class="pb-2 text-center">Import</th>
+    					</tr>
+				</thead>
+                                <tbody><tr><td class="py-2">Gastroscopy</td><td class="py-2"><span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 text-[10px] rounded-full uppercase">Pending</span></td>
+<td class="py-2">
+    <div class="flex items-center gap-3 text-gray-500">
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Images">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4-4a2 2 0 012.828 0L16 17m-2-2l1-1a2 2 0 012.828 0L20 16m-6-8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                </path>
+            </svg>
+
+            <span>12</span>
+        </button>
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Videos">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 6h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z">
+                </path>
+            </svg>
+
+            <span>3</span>
+        </button>
+
+    </div>
+</td>
+<td class="py-2 text-center">
+    <button title="View Report" class="text-gray-400 hover:text-indigo-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6M9 8h6m2-5H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z">
+            </path>
+        </svg>
+    </button>
+</td>
+<td class="py-2 text-center">
+    <button title="Edit" class="text-gray-400 hover:text-blue-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Import" class="text-gray-400 hover:text-teal-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12">
+            </path>
+        </svg>
+    </button>
+</td></tr>
+<tr>
+    <td class="py-2">Colonoscopy</td>
+
+    <td class="py-2">
+        <span class="px-2 py-0.5 bg-green-100 text-green-800 text-[10px] rounded-full uppercase">
+            Complete
+        </span>
+    </td>
+
+    <td class="py-2">
+    <div class="flex items-center gap-3 text-gray-500">
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Images">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4-4a2 2 0 012.828 0L16 17m-2-2l1-1a2 2 0 012.828 0L20 16m-6-8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                </path>
+            </svg>
+
+            <span>12</span>
+        </button>
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Videos">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 6h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z">
+                </path>
+            </svg>
+
+            <span>3</span>
+        </button>
+
+    </div>
+</td>
+<td class="py-2 text-center">
+    <button title="View Report" class="text-gray-400 hover:text-indigo-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6M9 8h6m2-5H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z">
+            </path>
+        </svg>
+    </button>
+</td>
+<td class="py-2 text-center">
+    <button title="Edit" class="text-gray-400 hover:text-blue-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Import" class="text-gray-400 hover:text-teal-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12">
+            </path>
+        </svg>
+    </button>
+</td>
+</tr>
+
+<tr>
+    <td class="py-2">ERCP</td>
+
+    <td class="py-2">
+        <span class="px-2 py-0.5 bg-red-100 text-red-700 text-[10px] rounded-full uppercase">
+            Incomplete
+        </span>
+    </td>
+
+        <td class="py-2">
+    <div class="flex items-center gap-3 text-gray-500">
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Images">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4-4a2 2 0 012.828 0L16 17m-2-2l1-1a2 2 0 012.828 0L20 16m-6-8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                </path>
+            </svg>
+
+            <span>12</span>
+        </button>
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Videos">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 6h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z">
+                </path>
+            </svg>
+
+            <span>3</span>
+        </button>
+
+    </div>
+</td>
+<td class="py-2 text-center">
+    <button title="View Report" class="text-gray-400 hover:text-indigo-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6M9 8h6m2-5H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z">
+            </path>
+        </svg>
+    </button>
+</td>
+<td class="py-2 text-center">
+    <button title="Edit" class="text-gray-400 hover:text-blue-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Import" class="text-gray-400 hover:text-teal-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12">
+            </path>
+        </svg>
+    </button>
+</td>
+</tr>
+</tbody>
+
+                            </table>
+                            <a href="add_procedure.html" class="mt-4 block text-xs font-bold text-teal-700 hover:text-teal-900">+ Add Procedure</a>
+                        </td>
+                    </tr>
+<tr class="border-b hover:bg-slate-50 cursor-pointer transition-colors" onclick="this.classList.toggle('is-expanded')">
+                        <td class="p-4 pl-6 flex items-center gap-3">
+                            <svg class="w-4 h-4 text-gray-400 chevron-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div><div class="font-bold">MRN-0003</div><div class="text-xs text-gray-400">12 Jan 2026</div></div>
+                        </td>
+                        <td class="p-4"><div class="font-bold">Michael Tan</div><div class="text-xs text-gray-400">ID-9982</div></td>
+                        <td class="p-4"><div class="flex items-center gap-2"><span class="text-sm">58</span><span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">M</span></div></td>
+                        <td class="p-4 text-sm font-mono">0123456789</td>
+                        <td class="p-4"><div class="font-medium">ERCP</div><div class="text-xs text-gray-400">18 Jun 2026</div></td>
+                        <td class="p-4">
+    <div class="swipe-container">
+        <div class="swipe-label">➜ Swipe to Start</div>
+        <div class="swipe-thumb"></div>
+    </div>
+</td>
+                    </tr>
+                    <tr class="expanded-content bg-slate-50 border-b">
+                        <td colspan="6" class="p-6">
+                            <div class="grid grid-cols-4 gap-6 mb-8 border-b pb-6">
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Email</div><div class="text-sm text-gray-700">john.doe@email.com</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Address</div><div class="text-sm text-gray-700">123 Main St, City</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Physician</div><div class="text-sm text-gray-700">Dr. Smith</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Ref ID</div><div class="text-sm text-gray-700">REF-8821</div></div>
+                                </div>
+                            </div>
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-gray-500 uppercase border-b">
+    					<tr>
+        					<th class="pb-2">Procedure</th>
+        					<th class="pb-2">Status</th>
+        					<th class="pb-2">Gallery</th>
+						<th class="pb-2 text-center">Report</th>
+        					<th class="pb-2 text-center">Edit</th>
+        					<th class="pb-2 text-center">Delete</th>
+        					<th class="pb-2 text-center">Import</th>
+    					</tr>
+				</thead>
+                                <tbody><tr><td class="py-2">Gastroscopy</td><td class="py-2"><span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 text-[10px] rounded-full uppercase">Pending</span></td>
+<td class="py-2">
+    <div class="flex items-center gap-3 text-gray-500">
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Images">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 16l4-4a2 2 0 012.828 0L16 17m-2-2l1-1a2 2 0 012.828 0L20 16m-6-8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                </path>
+            </svg>
+
+            <span>12</span>
+        </button>
+
+        <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
+                title="View Videos">
+
+            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                 viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 6h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z">
+                </path>
+            </svg>
+
+            <span>3</span>
+        </button>
+
+    </div>
+</td>
+<td class="py-2 text-center">
+    <button title="View Report" class="text-gray-400 hover:text-indigo-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6M9 8h6m2-5H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2z">
+            </path>
+        </svg>
+    </button>
+</td>
+<td class="py-2 text-center">
+    <button title="Edit" class="text-gray-400 hover:text-blue-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+            </path>
+        </svg>
+    </button>
+</td>
+
+<td class="py-2 text-center">
+    <button title="Import" class="text-gray-400 hover:text-teal-600 transition-colors">
+        <svg class="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12">
+            </path>
+        </svg>
+    </button>
+</td></tr></tbody>
+                            </table>
+                            <a href="add_procedure.html" class="mt-4 block text-xs font-bold text-teal-700 hover:text-teal-900">+ Add Procedure</a>
+                        </td>
+                    </tr>
+<tr class="border-b hover:bg-slate-50 cursor-pointer transition-colors" onclick="this.classList.toggle('is-expanded')">
+                        <td class="p-4 pl-6 flex items-center gap-3">
+                            <svg class="w-4 h-4 text-gray-400 chevron-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div><div class="font-bold">MRN-0004</div><div class="text-xs text-gray-400">12 Jan 2026</div></div>
+                        </td>
+                        <td class="p-4"><div class="font-bold">Priya Nair</div><div class="text-xs text-gray-400">ID-9982</div></td>
+                        <td class="p-4"><div class="flex items-center gap-2"><span class="text-sm">29</span><span class="text-[10px] bg-pink-100 text-pink-800 px-1.5 py-0.5 rounded">F</span></div></td>
+                        <td class="p-4 text-sm font-mono">0123456789</td>
+                        <td class="p-4"><div class="font-medium">None</div><div class="text-xs text-gray-400">-</div></td>
+                        <td class="p-4">
+    <div class="swipe-container">
+        <div class="swipe-label">➜ Swipe to Start</div>
+        <div class="swipe-thumb"></div>
+    </div>
+</td>
+                    </tr>
+                    <tr class="expanded-content bg-slate-50 border-b">
+                        <td colspan="6" class="p-6">
+                            <div class="grid grid-cols-4 gap-6 mb-8 border-b pb-6">
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Email</div><div class="text-sm text-gray-700">john.doe@email.com</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Address</div><div class="text-sm text-gray-700">123 Main St, City</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Physician</div><div class="text-sm text-gray-700">Dr. Smith</div></div>
+                                </div>
+                                <div class="flex gap-2">
+                                    <svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                    <div><div class="text-[10px] uppercase font-bold text-gray-400">Ref ID</div><div class="text-sm text-gray-700">REF-8821</div></div>
+                                </div>
+                            </div>
+                            <table class="w-full text-sm text-left">
+                                <thead class="text-xs text-gray-500 uppercase border-b">
+    					<tr>
+        					<th class="pb-2">Procedure</th>
+        					<th class="pb-2">Status</th>
+        					<th class="pb-2">Gallery</th>
+						<th class="pb-2 text-center">Report</th>
+        					<th class="pb-2 text-center">Edit</th>
+        					<th class="pb-2 text-center">Delete</th>
+        					<th class="pb-2 text-center">Import</th>
+    					</tr>
+				</thead>
+                                
+<tbody>
+<tr>
+<td colspan="7" class="py-4 text-center text-gray-400">
+No procedures recorded
+</td>
+</tr>
+</tbody>
+
+                            </table>
+                            <a href="add_procedure.html" class="mt-4 block text-xs font-bold text-teal-700 hover:text-teal-900">+ Add Procedure</a>
+                        </td>
+                    </tr>
+<tr class="border-b hover:bg-slate-50 cursor-pointer transition-colors" onclick="this.classList.toggle('is-expanded')">
+                        <td class="p-4 pl-6 flex items-center gap-3">
+                            <svg class="w-4 h-4 text-gray-400 chevron-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            <div><div class="font-bold">MRN-0005</div><div class="text-xs text-gray-400">12 Jan 2026</div></div>
+                        </td>
+                        <td class="p-4"><div class="font-bold">Abdul Rahman</div><div class="text-xs text-gray-400">ID-9982</div></td>
+                        <td class="p-4"><div class="flex items-center gap-2"><span class="text-sm">67</span><span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">M</span></div></td>
+                        <td class="p-4 text-sm font-mono">0123456789</td>
+                        <td class="p-4"><div class="font-medium">Sigmoidoscopy</div><div class="text-xs text-gray-400">20 Jun 2026</div></td>
+                        <td class="p-4">
+    <div class="swipe-container">
+        <div class="swipe-label">➜ Swipe to Start</div>
         <div class="swipe-thumb"></div>
     </div>
 </td>
@@ -363,119 +1119,10 @@ initSwipeButtons();
         }
 
         function registerPatient() {
-            const name = document.getElementById('patientName').value;
-            const age = document.getElementById('age').value;
-            const mobile = document.getElementById('mobile').value;
-            const email = document.getElementById('email').value || "N/A";
-            const addr = document.getElementById('address').value || "N/A";
-            const phys = document.getElementById('physician').value || "N/A";
-            const ref = document.getElementById('refId').value || "N/A";
-            const mrn = document.getElementById('mrnField').value;
-            if(!name || !age || !mobile) return alert("Fill mandatory fields");
+    alert("Patient registration is disabled in UI Demo Mode.");
+    toggleDrawer(false);
+}
 
-            const table = document.getElementById('patient-list');
-            const row = document.createElement('tr');
-            row.className = "border-b hover:bg-slate-50 cursor-pointer";
-            row.onclick = function() { this.classList.toggle('is-expanded'); };
-            row.innerHTML = `<td class="p-4 pl-6 flex items-center gap-3"><svg class="w-4 h-4 chevron-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg><div><div class="font-bold">${mrn}</div><div class="text-xs text-gray-400">Today</div></div></td><td class="p-4"><div class="font-bold">${name}</div></td><td class="p-4">${age}</td><td class="p-4">${mobile}</td><td class="p-4">-</td><td class="p-4">
-    <div class="swipe-container">
-        <div class="swipe-label">   ➜ Swipe to Start</div>
-        <div class="swipe-thumb"></div>
-    </div>
-</td>`;
-            
-            const detailRow = document.createElement('tr');
-            detailRow.className = "expanded-content bg-slate-50 border-b";
-            detailRow.innerHTML = `<td colspan="6" class="p-6"><div class="grid grid-cols-4 gap-6 mb-8 border-b pb-6"><div class="flex gap-2"><svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg><div><div class="text-[10px] uppercase font-bold text-gray-400">Email</div><div class="text-sm text-gray-700">${email}</div></div></div><div class="flex gap-2"><svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg><div><div class="text-[10px] uppercase font-bold text-gray-400">Address</div><div class="text-sm text-gray-700">${addr}</div></div></div><div class="flex gap-2"><svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg><div><div class="text-[10px] uppercase font-bold text-gray-400">Physician</div><div class="text-sm text-gray-700">${phys}</div></div></div><div class="flex gap-2"><svg class="w-5 h-5 text-teal-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg><div><div class="text-[10px] uppercase font-bold text-gray-400">Ref ID</div><div class="text-sm text-gray-700">${ref}</div></div></div></div>
-<table class="w-full text-sm text-left">
-    <thead class="text-xs text-gray-500 uppercase border-b">
-        <tr>
-            <th class="pb-2">Procedure</th>
-            <th class="pb-2">Status</th>
-            <th class="pb-2">Gallery</th>
-            <th class="pb-2 text-center">Report</th>
-            <th class="pb-2 text-center">Edit</th>
-            <th class="pb-2 text-center">Delete</th>
-            <th class="pb-2 text-center">Import</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-
-            <td class="py-2">-</td>
-
-            <td class="py-2">
-                <span class="px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] rounded-full uppercase">
-                    None
-                </span>
-            </td>
-
-            <td class="py-2">
-                <div class="flex items-center gap-3 text-gray-500">
-
-                    <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
-                            title="View Images">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M4 16l4-4a2 2 0 012.828 0L16 17m-2-2l1-1a2 2 0 012.828 0L20 16m-6-8h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
-                            </path>
-                        </svg>
-                        <span>0</span>
-                    </button>
-
-                    <button class="flex items-center gap-1 hover:text-teal-700 transition-colors"
-                            title="View Videos">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 6h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z">
-                            </path>
-                        </svg>
-                        <span>0</span>
-                    </button>
-
-                </div>
-            </td>
-
-            <td class="py-2 text-center">
-                <button title="View Report" class="text-gray-400 hover:text-indigo-600 transition-colors">
-                    <!-- report svg -->
-                </button>
-            </td>
-
-            <td class="py-2 text-center">
-                <button title="Edit" class="text-gray-400 hover:text-blue-600 transition-colors">
-                    <!-- edit svg -->
-                </button>
-            </td>
-
-            <td class="py-2 text-center">
-                <button title="Delete" class="text-gray-400 hover:text-red-600 transition-colors">
-                    <!-- delete svg -->
-                </button>
-            </td>
-
-            <td class="py-2 text-center">
-                <button title="Import" class="text-gray-400 hover:text-teal-600 transition-colors">
-                    <!-- import svg -->
-                </button>
-            </td>
-
-        </tr>
-    </tbody>
-</table>
-<a href="add_procedure.html" class="mt-4 block text-xs font-bold text-teal-700 hover:text-teal-900">+ Add Procedure</a></td>`;
-            
-            table.appendChild(row);
-            table.appendChild(detailRow);
-initSwipeButtons();
-            mrnCounter++;
-            toggleDrawer(false);
-        }
 function initSwipeButtons() {
     document.querySelectorAll('.swipe-container').forEach(container => {
 
@@ -536,6 +1183,11 @@ function initSwipeButtons() {
                     row.classList.add('is-expanded');
                 }
 
+                // Small delay so user sees completion state
+                setTimeout(() => {
+                    window.location.href = "procedure.html";
+                }, 800);
+
             } else {
                 thumb.style.left = '2px';
             }
@@ -546,5 +1198,16 @@ function initSwipeButtons() {
     });
 }
     </script>
+    <a href="procedure.html" class="quick-procedure">
+
+    <div class="quick-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
+    </div>
+
+    <span>Quick Procedure</span>
+
+</a>
 </body>
 </html>

@@ -1,152 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template Editor - EndoSuite</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        /* Smooth transitions for accordion expansion */
-        .template-row-chevron { transition: transform 0.3s ease; }
-        .expanded .template-row-chevron { transform: rotate(180deg); }
-        .expanded { border-color: #0d9488 !important; }
-    </style>
-</head>
-<body class="bg-slate-100 min-h-screen pb-12">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template Editor - EndoSuite</title>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=0PHnanRxe5gUpqp0oI9Ea-x4bXdCY3B0xuiDx5AqMh-suqgVHJ-zoS6D0cvXkr187n-hhi6Ojnh3VRKAbJjr9Uqx8gtUU8Q1xxaN4jS105BVOGT5W3MqZx1ca3WRN-KqpRJUCTTbDSGLJRONE6IG0QtLpr16xQW7HqHvt8otTi4DebqVv02d3uAUTxLci-eSL_DSJ_DQBfX0EZyycm7603eiGBMdAyxDHUcQ7TS_BDV-8nqPolksZqy2OWRHF2CosSAAoFt1eU05az1pkslCWA" charset="UTF-8"></script><script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{font-family:Segoe UI,sans-serif}
+#layout{transition:grid-template-columns .35s ease}
+#tablePane{transition:all .35s ease}
+#previewPane{transition:all .35s ease;opacity:0;transform:translateX(30px);pointer-events:none}
+#layout.active{grid-template-columns:35% 65%}
+#layout.active #previewPane{opacity:1;transform:none;pointer-events:auto}
+.sel{background:#f0fdfa;border-left:4px solid #0f766e}
+</style></head>
+<body class="bg-slate-100">
+<header class="bg-teal-900 text-white p-4 shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex items-center gap-4">
 
-    <!-- Primary Navigation Header -->
-    <header class="bg-teal-900 text-white p-4 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 max-w-4xl flex items-center gap-4">
-            <a href="dashboard.html" class="opacity-70 hover:opacity-100 transition-opacity" title="Back to Dashboard">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-            </a>
-            <h1 class="text-xl font-semibold">Template Editor</h1>
-        </div>
-    </header>
+        <a href="dashboard.html"
+           class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-teal-800 transition-colors"
+           title="Back to Dashboard">
 
-    <!-- Sub-Header Action Bar -->
-    <section class="container mx-auto px-4 max-w-4xl mt-8 mb-6 flex justify-between items-center">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-800">Report Templates</h2>
-            <p class="text-sm text-gray-500">Manage and customize your procedure documentation.</p>
-        </div>
-        <button class="bg-teal-700 hover:bg-teal-800 text-white px-5 py-2.5 rounded-lg font-medium shadow-md transition-all text-sm flex items-center gap-2">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-            New Template
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="w-6 h-6"
+                 fill="none"
+                 stroke="currentColor"
+                 viewBox="0 0 24 24">
+
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"/>
+
+            </svg>
+
+        </a>
+
+        <h1 class="text-xl font-semibold">
+            Template Editor
+        </h1>
+
+    </div>
+</header>
+<div class="max-w-7xl mx-auto p-6">
+<div id="layout" class="grid grid-cols-1 gap-6">
+<div id="tablePane" class="bg-white rounded-xl shadow border overflow-hidden">
+<table class="w-full">
+<thead class="bg-slate-50 text-xs uppercase text-gray-500"><tr><th class="p-4 text-left">Procedure</th><th class="p-4">Type</th><th class="p-4">Updated</th><th class="p-4">Edit</th></tr></thead>
+<tbody id="rows"></tbody></table></div>
+<div id="previewPane" class="bg-white rounded-xl shadow border p-6">
+    <div class="flex justify-between items-center mb-4">
+        <button onclick="closePreview()"
+            class="flex items-center gap-2 text-sm font-medium text-teal-700 hover:text-teal-900">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24">
+                <path stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"/>
+            </svg>
+            Back to Templates
         </button>
-    </section>
+    </div>
+<h2 class="text-xl font-bold text-teal-800 mb-4">Template Preview</h2>
+<div class="border rounded-lg p-6 bg-slate-50">
+<div class="text-center font-bold text-lg">Hospital Header</div><hr class="my-4">
+<p><b>Procedure:</b> <span id="proc"></span></p>
+<div class="mt-4 border rounded p-3 bg-white"><b>Clinical Observations</b><div class="text-gray-500 mt-2">[ Findings appear here ]</div></div>
+<div class="mt-4 border rounded p-3 bg-white"><b>Advice & Prescription</b><div class="text-gray-500 mt-2">[ Advice appears here ]</div></div>
+<div class="mt-8 text-right">Doctor Signature</div>
+</div>
+</div></div></div>
+<script>
+const data=[
+["Gastroscopy","PRE-BUILT","12 Jun 2026"],
+["Colonoscopy","PRE-BUILT","10 Jun 2026"],
+["ERCP","CUSTOM","08 Jun 2026"],
+["Sigmoidoscopy","CUSTOM","03 Jun 2026"],
+["Bronchoscopy","PRE-BUILT","01 Jun 2026"],
+["Capsule Endoscopy","CUSTOM","29 May 2026"],
+["Endoscopic Ultrasound (EUS)","CUSTOM","25 May 2026"],
+["Stent Placement","CUSTOM","20 May 2026"]
+];
+const tb=document.getElementById("rows");
+data.forEach((r,i)=>{
+let chip=r[1]=="PRE-BUILT"?
+'<span class="px-2 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-semibold">PRE-BUILT</span>':
+'<span class="px-2 py-1 rounded-full bg-indigo-100 text-indigo-800 text-xs font-semibold">CUSTOM</span>';
+tb.innerHTML+=`<tr id="r${i}"
+    onclick="view(${i})"
+    class="border-t cursor-pointer hover:bg-teal-50 transition-all duration-200">
+<td class="p-4 font-semibold">${r[0]}</td>
+<td class="p-4">${chip}</td>
+<td class="p-4">${r[2]}</td>
+<td class="p-4">
+    <div class="flex justify-center items-center">
+<button
+    title="Edit"
+    onclick="event.stopPropagation(); alert('Template editor is not implemented in Demo Mode.');"
+    class="text-blue-700 hover:text-blue-900 transition-colors">
 
-    <!-- Template List Container -->
-    <main class="container mx-auto px-4 max-w-4xl">
-        <div class="space-y-4">
-            
-            <!-- Template Item: Gastroscopy -->
-            <div id="temp-1" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all">
-                <button onclick="toggleTemplate('temp-1')" class="w-full flex items-center justify-between p-6 hover:bg-slate-50 transition-colors focus:outline-none">
-                    <div class="flex items-center gap-4">
-                        <span class="font-semibold text-gray-800 text-lg">Gastroscopy</span>
-                        <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Pre-Built</span>
-                    </div>
-                    <svg class="w-5 h-5 text-gray-400 template-row-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                
-                <div class="hidden p-6 pt-0 bg-slate-50 border-t border-gray-100">
-                    <!-- Printable Preview Area -->
-                    <div class="bg-white my-6 p-12 shadow-sm border border-gray-200 min-h-[600px] flex flex-col mx-auto max-w-[95%]">
-                        <!-- Hospital Header -->
-                        <div class="text-center border-b-2 border-gray-100 pb-8 mb-10">
-                            <h2 class="text-3xl font-serif font-bold text-gray-900 tracking-tight">City General Hospital</h2>
-                            <p class="text-sm text-gray-500 uppercase tracking-widest mt-1">Endoscopy Department • Diagnostic Report</p>
-                        </div>
-                        
-                        <!-- Report Body -->
-                        <div class="flex-grow space-y-10">
-                            <div class="flex justify-between items-baseline border-b border-gray-50 pb-2">
-                                <h3 class="text-xl font-bold text-teal-900">Procedure: Gastroscopy</h3>
-                                <span class="text-xs text-gray-400">Template ID: GS-001</span>
-                            </div>
-                            
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-800 uppercase tracking-wide mb-3 border-l-4 border-teal-600 pl-3">Clinical Observations</h4>
-                                <div class="border border-dashed border-gray-300 bg-slate-50/50 p-6 rounded-lg min-h-[150px] text-sm text-gray-400 leading-relaxed">
-                                    [Findings related to Esophagus, Stomach, and Duodenum will be recorded here...]
-                                </div>
-                            </div>
+    <svg xmlns="http://www.w3.org/2000/svg"
+         class="w-5 h-5"
+         fill="none"
+         stroke="currentColor"
+         viewBox="0 0 24 24">
 
-                            <div>
-                                <h4 class="text-sm font-bold text-gray-800 uppercase tracking-wide mb-3 border-l-4 border-teal-600 pl-3">Advice & Prescription</h4>
-                                <div class="border border-dashed border-gray-300 bg-slate-50/50 p-6 rounded-lg min-h-[100px] text-sm text-gray-400 leading-relaxed">
-                                    [Recommendations, medication instructions, and follow-up plans will be recorded here...]
-                                </div>
-                            </div>
-                        </div>
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M16.862 3.487a2.1 2.1 0 113 2.97L7 19.32 3 20l.68-4z"/>
 
-                        <!-- Footer/Sign-off Space -->
-                        <div class="mt-12 pt-8 border-t border-gray-100 flex justify-between items-end">
-                            <div class="w-48 border-b border-gray-300"></div>
-                            <p class="text-[10px] text-gray-400">Printed via EndoSuite v1.0.4</p>
-                        </div>
-                    </div>
+    </svg>
 
-                    <!-- Edit Action Button -->
-                    <div class="flex justify-end mt-4">
-                        <button class="bg-teal-700 hover:bg-teal-800 text-white px-8 py-2.5 rounded-lg font-medium shadow-sm transition-all flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            Edit Template
-                        </button>
-                    </div>
-                </div>
-            </div>
+</button>
+</div>
+</td></tr>`
+});
+function view(i){
+document.getElementById("layout").classList.add("active");
+document.querySelectorAll("tbody tr").forEach(x=>x.classList.remove("sel"));
+document.getElementById("r"+i).classList.add("sel");
+document.getElementById("proc").textContent=data[i][0];
+let th=document.querySelector("thead tr");
+th.children[1].style.display="none";th.children[2].style.display="none";
+document.querySelectorAll("tbody tr").forEach(tr=>{tr.children[1].style.display="none";tr.children[2].style.display="none";});
+}
+function closePreview() {
 
-            <!-- Template Item: Colonoscopy -->
-            <div id="temp-2" class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all">
-                <button onclick="toggleTemplate('temp-2')" class="w-full flex items-center justify-between p-6 hover:bg-slate-50 transition-colors focus:outline-none">
-                    <div class="flex items-center gap-4">
-                        <span class="font-semibold text-gray-800 text-lg">Colonoscopy</span>
-                        <span class="bg-teal-100 text-teal-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Pre-Built</span>
-                    </div>
-                    <svg class="w-5 h-5 text-gray-400 template-row-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </button>
-                
-                <div class="hidden p-6 pt-0 bg-slate-50 border-t border-gray-100">
-                    <div class="bg-white my-6 p-12 shadow-sm border border-gray-200 min-h-[600px] flex flex-col mx-auto max-w-[95%] text-gray-400 italic flex items-center justify-center">
-                        Report structure similar to Gastroscopy (Customized for Colorectal data)
-                    </div>
-                    <div class="flex justify-end mt-4">
-                        <button class="bg-teal-700 hover:bg-teal-800 text-white px-8 py-2.5 rounded-lg font-medium shadow-sm transition-all flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            Edit Template
-                        </button>
-                    </div>
-                </div>
-            </div>
+    // Restore full-width layout
+    document.getElementById("layout").classList.remove("active");
 
-        </div>
-    </main>
+    // Remove selected row highlight
+    document.querySelectorAll("tbody tr").forEach(tr => {
+        tr.classList.remove("sel");
+    });
 
-    <script>
-        function toggleTemplate(id) {
-            const container = document.getElementById(id);
-            // Search for the content div within this specific container
-            const content = container.querySelector('div.bg-slate-50');
-            
-            if (content.classList.contains('hidden')) {
-                // Close all other templates first for a clean UI (Optional)
-                document.querySelectorAll('.expanded').forEach(el => {
-                    if(el.id !== id) {
-                        el.classList.remove('expanded');
-                        el.querySelector('div.bg-slate-50').classList.add('hidden');
-                    }
-                });
+    // Show hidden columns again
+    const headers = document.querySelector("thead tr").children;
 
-                content.classList.remove('hidden');
-                container.classList.add('expanded');
-            } else {
-                content.classList.add('hidden');
-                container.classList.remove('expanded');
-            }
-        }
-    </script>
-</body>
-</html>
+    headers[1].style.display = "";
+    headers[2].style.display = "";
+
+    document.querySelectorAll("tbody tr").forEach(tr => {
+        tr.children[1].style.display = "";
+        tr.children[2].style.display = "";
+    });
+
+}
+</script>
+</body></html>

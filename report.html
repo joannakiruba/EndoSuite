@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Procedure Report - EndoSuite</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body{
+    font-family: Segoe UI, sans-serif;
+}
+
+/* A4 PAPER EFFECT */
+.paper {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 20px auto;
+    background: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border: 1px solid #e5e7eb;
+}
+
+/* PRINT STYLE */
+@media print {
+    body {
+        background: white;
+    }
+    .paper {
+        box-shadow: none;
+        border: none;
+        margin: 0;
+        width: 100%;
+        min-height: auto;
+    }
+    .no-print {
+        display: none;
+    }
+}
+
+input,
+textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 10px;
+    outline: none;
+    background: white;
+    box-sizing: border-box;
+
+    /* Important */
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+input {
+    height: 38px;
+    line-height: 38px;
+}
+
+input::placeholder {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+textarea {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12px;
+    background: #fff;
+    resize: vertical;
+}
+
+textarea::placeholder {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #0f766e;
+    box-shadow: 0 0 0 3px rgba(15,118,110,0.08);
+}
+
+textarea {
+    resize: vertical;
+}
+.section-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: #0f766e;
+    margin-bottom: 6px;
+    margin-top: 16px;
+}
+</style>
+</head>
+
+<body class="bg-slate-100">
+
+<!-- HEADER -->
+<header class="bg-teal-900 text-white p-4 shadow-md sticky top-0 z-50 no-print">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+        <!-- LEFT: TITLE -->
+        <h1 class="text-lg font-semibold tracking-wide">
+            Procedure Report
+        </h1>
+
+        <!-- RIGHT: ACTIONS -->
+        <div class="flex items-center gap-2">
+
+            <!-- ANNOTATE -->
+            <a href="annotate.html"
+               class="px-4 py-2 bg-teal-700 hover:bg-teal-600 rounded-lg text-sm font-medium transition">
+                Annotate
+            </a>
+
+            <!-- DASHBOARD -->
+            <a href="dashboard.html"
+               class="px-4 py-2 bg-teal-700 hover:bg-teal-600 rounded-lg text-sm font-medium transition">
+                Return to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+</header>
+
+<main>
+
+<div class="h-[calc(100vh-72px)] flex gap-5 p-5">
+
+    <!-- ========================================= -->
+    <!-- LEFT REPORT AREA (SCROLLABLE) -->
+    <!-- ========================================= -->
+    <div class="w-[70%] bg-white border rounded-xl shadow overflow-y-auto p-8">
+
+        <div class="max-w-4xl mx-auto">
+
+    <!-- HEADER -->
+    <div class="text-center border-b-2 border-gray-100 pb-8 mb-8">
+
+        <h1 class="text-3xl font-serif font-bold text-gray-900">
+            EndoSuite Hospital
+        </h1>
+
+        <p class="text-sm text-gray-500 uppercase tracking-widest mt-1">
+            Endoscopy Department • Procedure Report
+        </p>
+
+    </div>
+
+    <!-- PATIENT DETAILS -->
+<!-- PATIENT HEADER -->
+<div class="mb-8 border rounded-lg p-4 bg-slate-50">
+
+    <div class="grid grid-cols-2 gap-y-2 text-sm">
+
+        <div>
+            <span class="font-semibold text-gray-700">Patient Name:</span>
+            <span class="text-gray-900">John Doe</span>
+        </div>
+
+        <div>
+            <span class="font-semibold text-gray-700">MRN:</span>
+            <span class="text-gray-900">MRN-2026-001</span>
+        </div>
+
+        <div>
+            <span class="font-semibold text-gray-700">Age:</span>
+            <span class="text-gray-900">42</span>
+        </div>
+
+        <div>
+            <span class="font-semibold text-gray-700">Gender:</span>
+            <span class="text-gray-900">Male</span>
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- PROCEDURE -->
+<div class="mb-8">
+
+    <div class="flex justify-between items-center">
+
+        <h3 class="text-xl font-bold text-teal-900">
+            Procedure: Gastroscopy
+        </h3>
+
+        <span class="text-xs text-gray-400">
+            GS-001
+        </span>
+
+    </div>
+
+    <div class="border-b mt-2"></div>
+
+</div>
+
+    <!-- INDICATION -->
+    <div class="mb-8">
+
+        <h4 class="text-sm font-bold uppercase tracking-wide mb-3 border-l-4 border-teal-600 pl-3">
+            Clinical Indication
+        </h4>
+
+        <textarea
+            rows="4"
+            class="border border-gray-200 rounded-lg p-4 w-full">
+        </textarea>
+
+    </div>
+
+    <!-- FINDINGS -->
+    <div class="mb-8">
+
+        <h4 class="text-sm font-bold uppercase tracking-wide mb-3 border-l-4 border-teal-600 pl-3">
+            Clinical Observations
+        </h4>
+
+        <textarea
+            rows="10"
+            class="border border-gray-200 rounded-lg p-4 w-full">
+        </textarea>
+
+    </div>
+
+    <!-- IMPRESSION -->
+    <div class="mb-8">
+
+        <h4 class="text-sm font-bold uppercase tracking-wide mb-3 border-l-4 border-teal-600 pl-3">
+            Impression
+        </h4>
+
+        <textarea
+            rows="5"
+            class="border border-gray-200 rounded-lg p-4 w-full">
+        </textarea>
+
+    </div>
+
+    <!-- RECOMMENDATIONS -->
+    <div class="mb-8">
+
+        <h4 class="text-sm font-bold uppercase tracking-wide mb-3 border-l-4 border-teal-600 pl-3">
+            Advice & Recommendations
+        </h4>
+
+        <textarea
+            rows="5"
+            class="border border-gray-200 rounded-lg p-4 w-full">
+        </textarea>
+
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="mt-12 pt-8 border-t">
+
+        <div class="w-64 ml-auto">
+
+            <div class="border-b border-gray-400 h-10"></div>
+
+            <p class="text-sm text-center mt-2 text-gray-600">
+                Consultant Signature
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!-- RIGHT PANEL (FIXED / ALWAYS VISIBLE) -->
+    <!-- ========================================= -->
+    <div class="w-[30%] min-h-0">
+
+        <div class="h-full bg-white border rounded-xl shadow flex flex-col overflow-hidden text-sm">
+
+            <!-- PDF PREVIEW AREA -->
+            <div class="flex-1 overflow-y-auto bg-slate-100 p-4">
+
+                <div class="bg-white my-4 p-8 shadow-sm border border-gray-200 min-h-[520px] flex flex-col mx-auto max-w-[95%]">
+
+                    <!-- Hospital Header -->
+                    <div class="text-center border-b-2 border-gray-100 pb-6 mb-8">
+
+                        <h2 class="text-xl font-serif font-bold text-gray-900 tracking-tight">
+                            EndoSuite Hospital
+                        </h2>
+
+                        <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-1">
+                            Endoscopy Department • Procedure Report
+                        </p>
+
+                    </div>
+
+                    <!-- Report Body -->
+                    <div class="flex-grow space-y-8">
+
+                        <!-- Procedure -->
+                        <div class="flex justify-between items-baseline border-b border-gray-100 pb-2">
+
+                            <h3 class="text-sm font-bold text-teal-900">
+                                Procedure: Gastroscopy
+                            </h3>
+
+                            <span class="text-[10px] text-gray-400">
+                                GS-001
+                            </span>
+
+                        </div>
+
+                        <!-- Findings -->
+                        <div>
+
+                            <h4 class="text-[11px] font-bold text-gray-800 uppercase tracking-wide mb-2 border-l-4 border-teal-600 pl-2">
+                                Clinical Observations
+                            </h4>
+
+                            <div class="border border-dashed border-gray-300 bg-slate-50 p-4 rounded-md min-h-[120px] text-xs text-gray-400 leading-relaxed">
+
+                                Findings related to Esophagus, Stomach and Duodenum
+                                will appear here...
+
+                            </div>
+
+                        </div>
+
+                        <!-- Impression -->
+                        <div>
+
+                            <h4 class="text-[11px] font-bold text-gray-800 uppercase tracking-wide mb-2 border-l-4 border-teal-600 pl-2">
+                                Impression
+                            </h4>
+
+                            <div class="border border-dashed border-gray-300 bg-slate-50 p-4 rounded-md min-h-[80px] text-xs text-gray-400 leading-relaxed">
+
+                                Diagnostic impression will appear here...
+
+                            </div>
+
+                        </div>
+
+                        <!-- Recommendations -->
+                        <div>
+
+                            <h4 class="text-[11px] font-bold text-gray-800 uppercase tracking-wide mb-2 border-l-4 border-teal-600 pl-2">
+                                Advice & Recommendations
+                            </h4>
+
+                            <div class="border border-dashed border-gray-300 bg-slate-50 p-4 rounded-md min-h-[80px] text-xs text-gray-400 leading-relaxed">
+
+                                Recommendations and follow-up instructions
+                                will appear here...
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="mt-10 pt-4 border-t border-gray-100 text-center">
+
+                        <p class="text-[10px] text-gray-400">
+                            Electronically Generated Procedure Report
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACTION BUTTONS -->
+<div class="border-t p-4 bg-white space-y-3">
+
+    <button
+        class="w-full py-1.5 text-sm rounded-lg bg-gray-200 hover:bg-gray-300">
+        Clear Report
+    </button>
+
+    <div class="flex gap-2">
+
+        <a
+            href="dashboard.html"
+            class="flex-1 py-1.5 text-sm rounded-lg bg-black text-white text-center">
+            Sign & Print
+        </a>
+
+        <a
+            href="dashboard.html"
+            class="flex-1 py-1.5 text-sm rounded-lg bg-black text-white text-center">
+            Sign & Finalize
+        </a>
+
+    </div>
+
+</div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+<script>
+function saveReport(){
+    alert("Report saved (UI demo mode)");
+}
+</script>
+
+</body>
+</html>
